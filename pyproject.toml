@@ -1,0 +1,12 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "formula1py"
+author = "Alex Raskin"
+author-email = "alexraskin@fastmail.fm"
+home-page = "https://github.com/alexraskin/f1py"
+classifiers = [ "License :: OSI Approved :: MIT License",]
+description-file = "README.md"
+
