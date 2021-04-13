@@ -7,7 +7,7 @@ coverage:  ## Run tests with coverage
 	coverage report -m
 
 deps:  ## Install dependencies
-	pip install black coverage flake8 mccabe mypy pylint pytest tox
+	pip install black coverage flake8 mccabe mypy pylint pytest tox flit
 
 lint:  ## Lint and static-check
 	flake8 formula1py/formula1.py
@@ -19,6 +19,9 @@ push:  ## Push code with tags
 
 test:  ## Run tests
 	pytest -ra formula1py/tests/test.py
+
+make: ## Publish
+	flit publish
 
 bind ?= localhost
 port ?= 3000
