@@ -5,9 +5,15 @@ name = "pypi"
 
 [packages]
 flit = "*"
+coverage = "*"
+flake8 = "*"
+mccabe = "*"
+mypy = "*"
+pylint = "*"
+pytest = "*"
+tox = "*"
 
 [dev-packages]
-autopep8 = "*"
 
 [requires]
 python_version = "3.7"
