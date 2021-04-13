@@ -9,5 +9,7 @@ author-email = "alexraskin@fastmail.fm"
 home-page = "https://github.com/alexraskin/f1py"
 classifiers = [ "License :: OSI Approved :: MIT License",]
 description-file = "README.md"
-
+requires = [
+    "requests >=2.20",
+]
 requires-python = ">=3.7"
