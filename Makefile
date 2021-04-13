@@ -1,3 +1,6 @@
+.DEFAULT_GOAL := help
+.PHONY: coverage deps help lint push test
+
 coverage:  ## Run tests with coverage
 	coverage erase
 	coverage run --include=formula1py/* -m pytest -ra
