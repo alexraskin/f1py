@@ -7,7 +7,7 @@ coverage:  ## Run tests with coverage
 	coverage report -m
 
 deps:  ## Install dependencies
-	pipenv install
+	pip install black coverage flake8 mccabe mypy pylint pytest tox
 
 lint:  ## Lint and static-check
 	flake8 formula1py/formula1.py
