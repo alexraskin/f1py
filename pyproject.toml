@@ -10,3 +10,4 @@ home-page = "https://github.com/alexraskin/f1py"
 classifiers = [ "License :: OSI Approved :: MIT License",]
 description-file = "README.md"
 
+requires-python = ">=3.7"
