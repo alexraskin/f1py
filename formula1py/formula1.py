@@ -13,6 +13,7 @@ class ErgastResponse(object):
     offset: [int] starting point of elements from API request
     limit: [int] number of items to return per request
     """
+
     url: str
     offset: Optional[int] = None
     limit: Optional[int] = None
@@ -21,7 +22,7 @@ class ErgastResponse(object):
     _text = None
 
     def make_request(self, format_):
-        self.url = f'{self.url}{format_}'
+        self.url = f"{self.url}{format_}"
         if self.limit and self.offset:
             querystring = {"limit": self.limit, "offset": self.offset}
         else:
@@ -31,19 +32,19 @@ class ErgastResponse(object):
     @property
     def xml(self):
         if self._xml is None:
-            self._xml = self.make_request('.xml')
+            self._xml = self.make_request(".xml")
         return self._xml.text
 
     @property
     def json(self):
         if self._json is None:
-            self._json = self.make_request('.json')
+            self._json = self.make_request(".json")
         return self._json.json()
 
     @property
     def text(self):
         if self._text is None:
-            self._text = self.make_request('.xml')
+            self._text = self.make_request(".xml")
         return self._text.text
 
 
@@ -88,8 +89,8 @@ class F1(object):
 
     def _build_url(self, path, **kwargs) -> str:
         url = "{protocol}://ergast.com/api/f1/{path}".format(
-            protocol="https" if self.secure else "http",
-            path=path.format(**kwargs))
+            protocol="https" if self.secure else "http", path=path.format(**kwargs)
+        )
         return url
 
 

@@ -9,5 +9,5 @@ usage: from formula1 import F1
 """
 from .formula1 import f1, F1
 
-__version__ = '0.3.0'
-__license__ = 'MIT'
+__version__ = "0.3.0"
+__license__ = "MIT"
