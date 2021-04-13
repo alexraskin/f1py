@@ -12,6 +12,7 @@ mypy = "*"
 pylint = "*"
 pytest = "*"
 tox = "*"
+requests = "*"
 
 [dev-packages]
 

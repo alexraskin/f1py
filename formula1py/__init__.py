@@ -7,7 +7,7 @@ usage: from formula1 import F1
 	f1.all_circuits().json
 	f1.current_schedule().url
 """
-from .formula1 import f1, F1
+from .formula1 import F1
 
-__version__ = "0.5.0"
+__version__ = "0.6.0"
 __license__ = "MIT"
