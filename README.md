@@ -1,4 +1,4 @@
-## F1PY
+## Formula1Py
 
 ### Ergast API Python Wrapper
 
