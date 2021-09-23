@@ -5,7 +5,7 @@
 ### Install
 
 ```
-pip install formula1
+pip install formula1py
 ```
 
 ---
@@ -13,7 +13,8 @@ pip install formula1
 ### Usage
 
 ```python
-from formula1 import F1
+import json
+from formula1py import F1
 
 # no args
 f1 = F1()
@@ -38,11 +39,11 @@ f1.constructor_standings(season=2013).xml
 f1.driver_season(season=2020).url
 
 # also supports random
-f1.random(season=2020).json
+print(json.dumps(f1.random(season=2020).json, indent=2)
 ```
 
 ```python
->> > from formula1 import F1
+>> > from formula1py import F1
 >> > f1 = F1(secure=True)
 >> > f1_season = f1.driver_season(season=2002)
 >> > print(f1_season.url)
