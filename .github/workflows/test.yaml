@@ -1,11 +1,11 @@
-name: publish
+name: test
 
 on:
   push:
     branches: [main, development]
 
 jobs:
-    publish:
+    test:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout sources
