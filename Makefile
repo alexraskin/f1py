@@ -8,7 +8,7 @@ coverage:  ## Run tests with coverage
 
 dev-deps:  ## Install dependencies
 	python3 -m pip install pipenv
-	pipenv install -dev
+	pipenv install --dev
 
 lint:  ## Lint and static-check
 	flake8 formula1py/formula1.py
