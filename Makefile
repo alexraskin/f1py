@@ -19,6 +19,7 @@ push:  ## Push code with tags
 	git push && git push --tags
 
 test:  ## Run tests
+	pipenv shell
 	pytest -ra formula1py/tests/test.py
 
 publish:  ## Publish to PyPi
