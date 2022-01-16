@@ -6,9 +6,9 @@ coverage:  ## Run tests with coverage
 	coverage run --include=formula1py/* -m pytest -ra
 	coverage report -m
 
-deps:  ## Install dependencies
+dev-deps:  ## Install dependencies
 	python3 -m pip install pipenv
-	pipenv install
+	pipenv install -dev
 
 lint:  ## Lint and static-check
 	flake8 formula1py/formula1.py
