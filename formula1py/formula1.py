@@ -1,58 +1,33 @@
-import random
-import requests
-
-from typing import Optional
+import json
+import re
+import urllib.parse
 from dataclasses import dataclass
+from typing import Optional
 
+import requests
+import requests_cache
+
+requests_cache.install_cache(cache_name='f1_api_cache', backend='sqlite', expire_after=180)
+
+
+class F1Exception(Exception):
+    pass
 
 @dataclass
-class ErgastResponse(object):
+class F1:
     """
-    makes the request to the api
-    url: [str] request url
+    secure: [bool] http or https
+    format_: [str] response format - defaults to json
     offset: [int] starting point of elements from API request
     limit: [int] number of items to return per request
+    timeout: [int] set a timeout for the API
     """
-
-    url: str
-    offset: Optional[int] = None
-    limit: Optional[int] = None
-    _json = None
-    _xml = None
-    _text = None
-
-    def make_request(self, format_):
-        self.url = f"{self.url}{format_}"
-        if self.limit and self.offset:
-            querystring = {"limit": self.limit, "offset": self.offset}
-        else:
-            querystring = None
-        return requests.get(self.url, params=querystring)
-
-    @property
-    def xml(self):
-        if self._xml is None:
-            self._xml = self.make_request(".xml")
-        return self._xml.text
-
-    @property
-    def json(self):
-        if self._json is None:
-            self._json = self.make_request(".json")
-        return self._json.json()
-
-    @property
-    def text(self):
-        if self._text is None:
-            self._text = self.make_request(".xml")
-        return self._text.text
-
-
-@dataclass
-class F1(object):
     secure: Optional[bool] = False
-    offset: Optional[int] = None
-    limit: Optional[int] = None
+    format_: Optional[str] = 'json' or 'xml' # grrr cannot use format so _
+    limit: Optional[int] = 30
+    offset: Optional[int] = 30
+    timeout: Optional[int] = 15
+        
 
     __all__ = {
         "all_drivers": "drivers",
@@ -72,26 +47,41 @@ class F1(object):
             raise AttributeError
 
         def outer(path):
-            def inner(**kwargs):
-                url = self._build_url(path, **kwargs)
-                return ErgastResponse(url)
-
-            return inner
+            def inner():
+                url = self._build_url(
+                    path=path,
+                    limit=self.limit,
+                    offset=self.offset)
+                return self._make_request(url=url)
+            return inner 
 
         return outer(self.__all__[attr])
 
-    def random(self, **kwargs):
-        applicable_actions = []
-        for action in self.__all__.keys():
-            applicable_actions.append(action)
-        choice = getattr(self, random.choice(applicable_actions))
-        return choice(**kwargs)
-
-    def _build_url(self, path, **kwargs) -> str:
-        url = "{protocol}://ergast.com/api/f1/{path}".format(
-            protocol="https" if self.secure else "http", path=path.format(**kwargs)
-        )
+    def _build_url(self, path: str, **params: dict) -> str:
+        url = "{protocol}://ergast.com/api/f1/{path}.{format_}?{params}".format(
+            protocol="https" if self.secure else "http",
+            path=path,
+            format_='json' if self.format_ == 'json' else 'xml',
+            params=urllib.parse.urlencode(params))
         return url
 
+    def _make_request(self, url):
+        try:
+            response = requests.get(url=url, timeout=self.timeout)
 
-f1 = F1()
+        except requests.Timeout:
+            raise F1Exception('Error: API Timeout')
+
+        if response.status_code != 200:
+            raise F1Exception(f'Returned NON-200:{response.status_code}')
+
+        if self.format_ == 'json':
+            return response.json()
+        if self.format_ == 'xml':
+            return response.text
+        else:
+            raise F1Exception('API Error')
+
+f1 = F1(secure=True, format_='')
+
+print(f1.all_drivers())

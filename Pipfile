@@ -4,17 +4,18 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flit = "*"
-coverage = "*"
-flake8 = "*"
-mccabe = "*"
-mypy = "*"
-pylint = "*"
-pytest = "*"
-tox = "*"
 requests = "*"
+requests-cache = "*"
 
 [dev-packages]
+tox = "*"
+pytest = "*"
+pylint = "*"
+mypy = "*"
+mccabe = "*"
+flake8 = "*"
+coverage = "*"
+flit = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"
